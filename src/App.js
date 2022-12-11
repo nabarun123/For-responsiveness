@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import useWindowSize from "./use-window-size";
+import { useEffect } from "react";
 
 function App() {
+  const size = useWindowSize();
+  function clientWidth() {
+    const width = Math.max(
+      document.documentElement.clientWidth,
+      window.innerWidth || 0
+    );
+    return width;
+  }
+  useEffect(() => {
+    console.log(clientWidth());
+  }, [document.documentElement.clientWidth, window.innerWidth || 0]);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Hello Universe!</h1>
+      <h3>Responsiveness according the width of the screen</h3>
+      {size.width <= 950 ? (
+        <div style={{ backgroundColor: "red" }}>Hello</div>
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 }
